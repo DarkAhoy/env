@@ -1,0 +1,22 @@
+PATH=$PATH:~/.scripts/:/usr/local/go/bin
+
+PATH=$PATH:$(go env GOPATH)/bin
+
+# auto completion with highlight
+zstyle ':completion:*' menu select
+
+# starship prompt
+eval "$(starship init zsh)"
+
+# history
+HISTSIZE=5000               #How many lines of history to keep in memory
+HISTFILE=~/.zsh_history     #Where to save history to disk
+SAVEHIST=5000               #Number of history entries to save to disk
+setopt    appendhistory     #Append history to the history file (no overwriting)
+setopt    sharehistory      #Share history across terminals
+setopt    incappendhistory  #Immediately append to the history file, not just when a term is killed
+
+# aliases
+alias tmux="tmux -u"
+alias ls="ls --color=auto"
+

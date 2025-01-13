@@ -1,0 +1,36 @@
+# change the prefix
+unbind C-b
+set-option -g prefix C-e
+
+# colors 
+set-option -g default-terminal "tmux-256color"
+
+# vim like movments 
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# escape time
+set-option -sg escape-time 10
+
+# Enable mouse mode (tmux 2.1 and above)
+set -g mouse on
+
+# set tmux in vi mode
+set-window-option -g mode-keys vi
+bind-key -T copy-mode-vi 'v' send -X begin-selection
+bind-key -T copy-mode-vi 'y' send-keys -X copy-pipe-and-cancel 'xclip -se c -i'
+
+#set default path location
+bind c new-window -c "#{pane_current_path}"
+bind '"' split-window -c "#{pane_current_path}"
+bind % split-window -h -c "#{pane_current_path}"
+
+# border colours
+set -g pane-border-style fg=magenta
+set -g pane-active-border-style "bg=default fg=cyan"
+set -g status-style fg=black,bg=magenta
+
+# buffer history size 
+set-option -g history-limit 5000
