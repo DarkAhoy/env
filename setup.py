@@ -127,6 +127,7 @@ class wezterm():
     
     def configure(self): 
         soft_link(configuration_path("wezterm.lua"), home(os.path.join(".config", "wezterm", "wezterm.lua")))
+        soft_link(configuration_path("keys.lua"), home(os.path.join(".config", "wezterm", "keys.lua")))
 
 class zsh(): 
     def __init__(self): 
