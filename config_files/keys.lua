@@ -27,11 +27,27 @@ local function split_nav( key)
   }
 end
 
+local function resize(key)
+	return {
+		key = key,
+		mods = 'LEADER' and 'META',
+		action = w.action_callback(function(win, pane)
+			win:perform_action({ AdjustPaneSize = { direction_keys[key], 3 } }, pane)
+		end),
+	}
+end
+
+
 return {
     -- move between split panes
     split_nav('h'),
     split_nav('j'),
     split_nav('k'),
     split_nav( 'l'),
+
+  	resize('h'),
+    resize('j'),
+    resize('k'),
+    resize( 'l'),
 }
 
