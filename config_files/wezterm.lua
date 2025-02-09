@@ -1,32 +1,28 @@
-local wezterm = require("wezterm")
-local act = wezterm.action
+local wezterm = require 'wezterm'
+local keys = require 'keys'
 
-return {
-  -- Set a transparent background with opacity
-  window_background_opacity = 0.8,  
+local config = wezterm.config_builder()
 
-  -- Optional: Enable text opacity for additional effects
-  text_background_opacity = 0.8,   
+config.leader = { key = 'e', mods = 'CTRL', timeout_milliseconds = 1000 }
 
-  -- Set font and other optional configurations
-  font = wezterm.font("JetBrains Mono"), 
-  font_size = 12.0,                     
-  color_scheme = "OneHalfDark",         
+-- Set a transparent background with opacity
+config.window_background_opacity = 0.9
+config.macos_window_background_blur = 20
 
-  hide_tab_bar_if_only_one_tab = true,
+-- Set font and other optional configurations
+config.font = wezterm.font("JetBrains Mono")
+config.font_size = 12.0
+config.color_scheme = "OneHalfDark"
 
-  keys = {
-    -- paste from the clipboard
-    { key = 'v', mods = 'CTRL', action = act.PasteFrom 'Clipboard' },
-    { key = 'p', mods = 'SUPER', action = act.ActivateCommandPalette },
+config.hide_tab_bar_if_only_one_tab = true
+config.tab_bar_at_bottom = true
 
-    -- allow cntrl left right to skip words 
-    {key="LeftArrow", mods="CTRL", action=wezterm.action{SendString="\x1bb"}},
-    -- Make Option-Right equivalent to Alt-f; forward-word
-    {key="RightArrow", mods="CTRL", action=wezterm.action{SendString="\x1bf"}},
-    -- paste from the primary selection
-    -- { key = 'v', mods = 'CTRL', action = act.PasteFrom 'PrimarySelection' },
-  },
+-- config.window_decorations = "NONE"
 
-  window_decorations = "NONE"
-}
+-- Merge vim_moves into config.keys
+config.keys = {}
+for _, keymap in ipairs(keys) do
+  table.insert(config.keys, keymap)
+end
+
+return config

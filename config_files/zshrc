@@ -1,12 +1,13 @@
-PATH=$PATH:~/.scripts/:/usr/local/go/bin
+export PATH=$PATH:$HOME/.scripts/
 
-PATH=$PATH:$(go env GOPATH)/bin
-
-# auto completion with highlight
-zstyle ':completion:*' menu select
+autoload -U compinit
 
 # starship prompt
 eval "$(starship init zsh)"
+
+compinit
+# auto completion with highlight
+zstyle ':completion:*' menu select
 
 # history
 HISTSIZE=5000               #How many lines of history to keep in memory
@@ -20,3 +21,6 @@ setopt    incappendhistory  #Immediately append to the history file, not just wh
 alias tmux="tmux -u"
 alias ls="ls --color=auto"
 
+if [ -f $HOME/.path.sh ]; then 
+	source $HOME/.path.sh
+fi 
