@@ -1,6 +1,7 @@
 import os
 import shutil
 import requests
+import platform
 
 from command import Command
 
@@ -233,7 +234,7 @@ class copyq():
 def main(): 
     install = True
     configure = True
-
+    
     all_env_applications = [
         XServer(), 
         zsh(),
@@ -245,6 +246,13 @@ def main():
         i3(),
         copyq(),
     ]
+
+    if platform.system() == 'Darwin':
+        all_env_applications = [
+            #zsh(),
+            #wezterm(),
+            starship(),
+        ]
 
     for application in all_env_applications:  
         if install and application.should_install():
