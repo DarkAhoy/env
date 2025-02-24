@@ -89,16 +89,15 @@ def home(path_after_home):
     return os.path.join(os.path.expanduser("~"), path_after_home)
 
 def untar(source, target): 
-    out = Command("tar", arguments=["-tf", source, "--strip-components=1"]).process_with_output()
-    archive_name = out.splitlines()[0].decode("utf-8")
-    Command("tar", arguments=["-xvzf", source]).run_command()
-    Command("mv", arguments=[archive_name, target]).run_command()
+    os.makedirs(target, exist_ok=True)
+    Command("tar", arguments=["-xvzf", source, "-C", target, "--strip-components=1"]).run_command()
 
 def configuration_path(file_name): 
     return os.path.join(os.getcwd(), "config_files", file_name)
 
 def install_deb_file(file_path):
      Command("apt", arguments=["install", "-f", file_path]).as_sudo().run_command()
+
 
 class i3():
     def __init__(self): 
@@ -204,6 +203,44 @@ class starship():
         soft_link(configuration_path("starship.toml"), home(os.path.join(".config", "starship.toml")))
 
 
+class nvim():
+    def __init__(self, local_path):
+        self.local_path = local_path
+
+    def should_install(self):
+        return not command_exists("nvim")
+    
+
+    def link_files(self, relative, target): 
+        walk_path = configuration_path(relative) 
+        for root, dirs, files in os.walk(walk_path):
+            for f in files: 
+                link_target = os.path.join(root[root.index(relative) + len(relative):], f)
+                if link_target[0] == '/':
+                    link_target = link_target[1:]
+                link_source = os.path.join(root, f)
+                full_target = home(os.path.join(target, link_target))
+                soft_link(link_source, full_target)
+
+    def install(self):
+        with RemoveableFile("nvim.tar.gz"):
+            download_file("https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz", "nvim.tar.gz")
+            untar("nvim.tar.gz", "nvim")
+            Command(command="mv", arguments=["-f", "nvim/", f"{self.local_path}"]).run_command()
+            soft_link(os.path.join(self.local_path, "nvim", "bin", "nvim"), "/usr/local/bin/nvim", sudo=True)
+
+    def configure(self):
+
+        soft_link(configuration_path("nvim"), home(os.path.join(".config")))
+
+        """
+        relative = os.path.join("nvim", "plugins")
+        self.link_files(relative, os.path.join(".config", "nvim", "lua", "plugins"))
+
+        relative = os.path.join("nvim", "config")
+        self.link_files(relative, os.path.join(".config", "nvim", "lua", "config"))
+        """
+
 class XServer():
     def __init__(self):
         pass 
@@ -232,19 +269,21 @@ class copyq():
         soft_link(configuration_path("copyq-commands.ini"), home(os.path.join(".config", "copyq", "copyq-commands.ini")))
 
 def main(): 
-    install = True
+    install = False
     configure = True
+    force = True
     
     all_env_applications = [
-        XServer(), 
-        zsh(),
-        tmux(),
-        picom(),
-        wezterm(),
-        starship(),
-        chrome(),
-        i3(),
-        copyq(),
+        #XServer(), 
+        #zsh(),
+        #tmux(),
+        #picom(),
+        #wezterm(),
+        #starship(),
+        #chrome(),
+        #i3(),
+        #copyq(),
+        nvim(os.path.join(home("opt")))
     ]
 
     if platform.system() == 'Darwin':
@@ -255,7 +294,7 @@ def main():
         ]
 
     for application in all_env_applications:  
-        if install and application.should_install():
+        if install and (application.should_install() or force):
             application.install()
         
         if configure: 

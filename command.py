@@ -35,7 +35,6 @@ class Command:
     
     def process_with_output(self): 
         print(self)
-        out = subprocess.PIPE
 
         p = subprocess.Popen(args=[self.command] + self.arguments, 
                          cwd=self.directory,

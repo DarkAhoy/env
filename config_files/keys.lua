@@ -14,31 +14,29 @@ local keys = {
   },
   {
 	  key = 'p',
-	  mods = 'SUPER',
+	  mods = 'LEADER',
 	  action = w.action.ActivateCommandPalette
   },
 
-    -- allow cntrl left right to skip wordsw
+  -- allow cntrl left right to skip wordsw
   {
 	  key="LeftArrow",
 	  mods="CTRL",
 	  action=w.action{SendString="\x1bb"}
   },
-
-    -- Make Option-Right equivalent to Alt-f; forward-word
+  -- Make Option-Right equivalent to Alt-f; forward-word
   {
 	  key="RightArrow",
 	  mods="CTRL",
 	  action=w.action{SendString="\x1bf"}
   },
-
   {
-    mods   = "LEADER",
-    key    = "\"",
+    mods   = "LEADER|SHIFT",
+    key    = '"',
     action = w.action.SplitVertical { domain = 'CurrentPaneDomain' }
   },
   {
-    mods   = "LEADER",
+    mods   = "LEADER|SHIFT",
     key    = "%",
     action = w.action.SplitHorizontal { domain = 'CurrentPaneDomain' }
   },
@@ -70,7 +68,6 @@ local keys = {
         end),
       },
   },
-
 }
 
 local direction_keys = {
