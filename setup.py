@@ -224,22 +224,17 @@ class nvim():
 
     def install(self):
         with RemoveableFile("nvim.tar.gz"):
-            download_file("https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz", "nvim.tar.gz")
+            file = "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
+            if platform.system() == 'Darwin':
+                file = "https://github.com/neovim/neovim/releases/latest/download/nvim-macos-arm64.tar.gz"
+
+            download_file(file, "nvim.tar.gz")
             untar("nvim.tar.gz", "nvim")
             Command(command="mv", arguments=["-f", "nvim/", f"{self.local_path}"]).run_command()
             soft_link(os.path.join(self.local_path, "nvim", "bin", "nvim"), "/usr/local/bin/nvim", sudo=True)
 
     def configure(self):
-
         soft_link(configuration_path("nvim"), home(os.path.join(".config")))
-
-        """
-        relative = os.path.join("nvim", "plugins")
-        self.link_files(relative, os.path.join(".config", "nvim", "lua", "plugins"))
-
-        relative = os.path.join("nvim", "config")
-        self.link_files(relative, os.path.join(".config", "nvim", "lua", "config"))
-        """
 
 class XServer():
     def __init__(self):
@@ -269,9 +264,9 @@ class copyq():
         soft_link(configuration_path("copyq-commands.ini"), home(os.path.join(".config", "copyq", "copyq-commands.ini")))
 
 def main(): 
-    install = False
+    install = True
     configure = True
-    force = True
+    force = False
     
     all_env_applications = [
         #XServer(), 
@@ -283,14 +278,15 @@ def main():
         #chrome(),
         #i3(),
         #copyq(),
-        nvim(os.path.join(home("opt")))
+        nvim(home("opt"))
     ]
 
     if platform.system() == 'Darwin':
         all_env_applications = [
             #zsh(),
             #wezterm(),
-            starship(),
+            nvim(home("opt")),
+            #starship(),
         ]
 
     for application in all_env_applications:  
