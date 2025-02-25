@@ -24,6 +24,8 @@ vim.g.maplocalleader = "\\"
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
+vim.opt.termguicolors = true
+
 vim.opt.relativenumber = true
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.swapfile = false
@@ -35,5 +37,7 @@ require("lazy").setup({
     { import = "plugins" },
   },
   -- automatically check for plugin updates
-  checker = { enabled = true },
+  checker = { enabled = false },
 })
+
+vim.cmd("colorscheme catppuccin")
