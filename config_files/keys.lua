@@ -31,6 +31,11 @@ local keys = {
 	  action=w.action{SendString="\x1bf"}
   },
   {
+	  key="p",
+	  mods="LEADER",
+	  action=w.action.QuickSelectArgs {alphabet = 'abc'}
+  },
+  {
     mods   = "LEADER|SHIFT",
     key    = '"',
     action = w.action.SplitVertical { domain = 'CurrentPaneDomain' }
