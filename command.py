@@ -3,42 +3,42 @@ import subprocess
 class Command:
     def __init__(self, command, arguments=[], env=None, directory=None, ignore_non_zero=False): 
         self.command = command
-        self.arguments = arguments 
-        self.env = env 
-        self.directory = directory 
+        self.arguments = arguments
+        self.env = env
+        self.directory = directory
         self.output = None
         self.return_code = -1
         self.ignore_non_zero = ignore_non_zero
 
     def set_env(self, env, override=True): 
-        if not env: 
+        if not env:
             return
 
-        if not self.env: 
+        if not self.env:
             self.env = env
 
-        if override: 
+        if override:
             self.env = {**self.env, **env}
         else:
             self.env = {**env, **self.env}
-    
-    def as_sudo(self): 
+
+    def as_sudo(self):
         self.arguments.insert(0, self.command)
         self.command = "sudo"
         return self
 
-    def set_output(self, output): 
-       self.output = output 
-    
+    def set_output(self, output):
+        self.output = output
+
     def get_output(self):
         return self.output
-    
-    def process_with_output(self): 
+
+    def process_with_output(self):
         print(self)
 
-        p = subprocess.Popen(args=[self.command] + self.arguments, 
-                         cwd=self.directory,
-                         env=self.env, stdout=subprocess.PIPE)
+        p = subprocess.Popen(args=[self.command] + self.arguments,
+                            cwd=self.directory,
+                            env=self.env, stdout=subprocess.PIPE)
         
         output = bytearray()
         for l in p.stdout: 
