@@ -4,3 +4,8 @@ end)
 
 vim.keymap.set('n', 'c', '"_c', opts)
 vim.keymap.set('n', 'x', '"_x', opts)
+
+vim.keymap.set('n', '<leader>ww', function() 
+	vim.cmd(':w') 
+end)
+ 

@@ -45,6 +45,7 @@ return {
 			callback = function() 
 				vim.keymap.set('n',  "<C-]>", vim.lsp.buf.definition )
 				vim.keymap.set('n',   "<leader>uu", vim.lsp.buf.references  )
+				vim.keymap.set('n',   "<leader>ca", vim.lsp.buf.code_action  )
 			end
 		})
 	end
