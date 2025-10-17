@@ -7,6 +7,13 @@ config.leader = { key = 'e', mods = 'CTRL', timeout_milliseconds = 1000 }
 
 -- Set a transparent background with opacity
 config.window_background_opacity = 0.9
+config.background = {
+        {
+            source = {
+                File = '$HOME/src/env/anime-girl.jpg',
+            },
+        },
+}
 -- config.macos_window_background_blur = 20
 
 -- Set font and other optional configurations

@@ -5,11 +5,13 @@ return {
      keys = {
 	{"<c-p>", "<cmd>Telescope find_files<cr>"},
 	{"<leader>ff", "<cmd>Telescope live_grep<cr>"},
+	{"<leader>rr", "<cmd>Telescope resume<cr>"},
      },
      config = function() 
 	     local actions = require('telescope.actions')
 	     require('telescope').setup({
 		     defaults = {
+			     file_ignore_patterns = {"node_modules"},
 			     mappings = {
 				i = {
 					["<esc>"] = actions.close,

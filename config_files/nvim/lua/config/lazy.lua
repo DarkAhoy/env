@@ -27,8 +27,14 @@ vim.opt.splitbelow = true
 vim.opt.termguicolors = true
 
 vim.opt.relativenumber = true
+vim.opt.number = true
 vim.opt.clipboard = 'unnamedplus'
 vim.opt.swapfile = false
+
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.smartindent = false
 
 -- Setup lazy.nvim
 require("lazy").setup({

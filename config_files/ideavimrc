@@ -1,0 +1,69 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+
+
+
+" Don't use Ex mode, use Q for formatting.
+map Q gq
+
+" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
+
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+
+let mapleader = " "
+
+"editor
+"" -- Suggested options --
+" Show a few lines of context around the cursor. Note that this makes the
+" text scroll if you mouse-click near the start or end of the window.
+set scrolloff=5
+
+" Do incremental searching.
+set incsearch
+set ignorecase
+set clipboard+=unnamed
+
+nnoremap c "_c
+nnoremap x "_x
+
+map <leader>rr <Action>(GotoAction)
+map <leader>c <Action>(ChooseRunConfiguration)
+map <leader>b <Action>(Switcher)
+map <leader>f <Action>(FindInPath)
+map <D-p> <Action>(GotoFile)
+map <D-o> <Action>(Back)
+nmap <leader>p <Action>(SelectInProjectView)
+nmap <leader>ss <Action>(HideSideWindows)<Action>(HideActiveWindow)
+
+    " motions
+    nmap <D-w><Left> <C-w>h
+    nmap <D-w><Right> <C-w>l
+    nmap <D-w><Up> <C-w>k
+	nmap <D-w><Down> <C-w>j
+
+    nmap <D-w>h <C-w>h
+    nmap <D-w>l <C-w>l
+    nmap <D-w>k <C-w>k
+	nmap <D-w>j <C-w>j
+
+    nmap <D-d> <C-d>
+    nmap <D-u> <C-u>
+
+"lsp
+map <leader>ca <Action>(ShowErrorDescription)
+map <leader>rn <Action>(RenameElement)
+map <D-]> <Action>(GotoDeclaration)
+nmap <leader>fc v<Action>(ReformatCode)
+
+"debug
+nmap <leader>bp <Action>(ToggleLineBreakpoint)
+nmap <leader>t <Action>(DebugClass)
+
+" git
+map <leader>gg <Action>(Annotate)
+nmap <leader>g <Action>(Git.Branches)

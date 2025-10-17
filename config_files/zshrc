@@ -2,9 +2,6 @@ export PATH=$PATH:$HOME/.scripts/
 
 autoload -U compinit
 
-# starship prompt
-eval "$(starship init zsh)"
-
 compinit
 # auto completion with highlight
 zstyle ':completion:*' menu select
@@ -29,3 +26,8 @@ export PATH=$PATH:$HOME/opt
 if [ -f $HOME/.path.sh ]; then 
 	source $HOME/.path.sh
 fi 
+
+# starship prompt
+eval "$(starship init zsh)"
+
+. "$HOME/.local/bin/env"
