@@ -230,6 +230,19 @@ class JetBrains():
         soft_link(configuration_path("ideavimrc"), home(".ideavimrc"))
 
 
+class Raycast():
+    def __init__(self):
+        pass
+
+    def should_install(self):
+        return not brew_exists("raycast")
+
+    def install(self):
+        brew_install("raycast", is_cask=True)
+
+    def configure(self):
+        print("import config manually")
+
 def main():
     install = True
     configure = True
@@ -246,6 +259,7 @@ def main():
         Karabiner(),
         Zsh(),
         JetBrains(),
+        Raycast(),
     ]
 
     for application in all_env_applications:
