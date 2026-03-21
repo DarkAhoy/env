@@ -252,7 +252,7 @@ def main():
 
     all_env_applications = [
         Homebrew(),
-        Iosevka(),
+        #Iosevka(),
         Wezterm(),
         Nvim(),
         Starship(),

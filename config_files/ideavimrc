@@ -3,13 +3,6 @@
 " You can find a list of commands here: https://jb.gg/h38q75
 " Find more examples here: https://jb.gg/share-ideavimrc
 
-
-
-" Don't use Ex mode, use Q for formatting.
-map Q gq
-
-" --- Enable IdeaVim plugins https://jb.gg/ideavim-plugins
-
 " Highlight copied text
 Plug 'machakann/vim-highlightedyank'
 " Commentary plugin
@@ -33,37 +26,40 @@ nnoremap x "_x
 
 map <leader>rr <Action>(GotoAction)
 map <leader>c <Action>(ChooseRunConfiguration)
-map <leader>b <Action>(Switcher)
 map <leader>f <Action>(FindInPath)
-map <D-p> <Action>(GotoFile)
-map <D-o> <Action>(Back)
+nmap <D-p> <Action>(GotoFile)
+nmap <D-o> <Action>(Back)
 nmap <leader>p <Action>(SelectInProjectView)
-nmap <leader>ss <Action>(HideSideWindows)<Action>(HideActiveWindow)
+nmap <leader>tt <Action>(Rider.UnitTesting.RunContext)
+nmap <leader>tt <Action>(RunContext)
+nmap <leader>db <Action>(DebugClass)
+nmap <leader>cc <Action>(HideActiveWindow)
 
-    " motions
-    nmap <D-w><Left> <C-w>h
-    nmap <D-w><Right> <C-w>l
-    nmap <D-w><Up> <C-w>k
-	nmap <D-w><Down> <C-w>j
+" motions
+nmap <D-w><Left> <C-w>h
+nmap <D-w><Right> <C-w>l
+nmap <D-w><Up> <C-w>k
+nmap <D-w><Down> <C-w>j
 
-    nmap <D-w>h <C-w>h
-    nmap <D-w>l <C-w>l
-    nmap <D-w>k <C-w>k
-	nmap <D-w>j <C-w>j
+nmap <D-w>h <C-w>h
+nmap <D-w>l <C-w>l
+nmap <D-w>k <C-w>k
+nmap <D-w>j <C-w>j
 
-    nmap <D-d> <C-d>
-    nmap <D-u> <C-u>
+nmap <D-d> <C-d>
+nmap <D-u> <C-u>
 
 "lsp
 map <leader>ca <Action>(ShowErrorDescription)
 map <leader>rn <Action>(RenameElement)
 map <D-]> <Action>(GotoDeclaration)
-nmap <leader>fc v<Action>(ReformatCode)
+nmap <leader>fc <Action>(ReformatCode)
+nmap <leader>ii <Action>(GotoImplementation)
 
 "debug
 nmap <leader>bp <Action>(ToggleLineBreakpoint)
-nmap <leader>t <Action>(DebugClass)
 
 " git
 map <leader>gg <Action>(Annotate)
 nmap <leader>g <Action>(Git.Branches)
+nmap <leader>gc <Action>(Git.CompareWithBranch)

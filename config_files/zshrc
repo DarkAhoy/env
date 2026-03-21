@@ -1,8 +1,8 @@
 export PATH=$PATH:$HOME/.scripts/
 
-autoload -U compinit
-
+autoload -Uz compinit
 compinit
+
 # auto completion with highlight
 zstyle ':completion:*' menu select
 
@@ -23,11 +23,20 @@ if [ ! -d $HOME/opt ]; then
 fi
 export PATH=$PATH:$HOME/opt
 
-if [ -f $HOME/.path.sh ]; then 
-	source $HOME/.path.sh
-fi 
+[ -f $HOME/.path.sh ] && source $HOME/.path.sh
+[ -f $HOME/.env.sh ] && source $HOME/.env.sh
 
 # starship prompt
 eval "$(starship init zsh)"
 
 . "$HOME/.local/bin/env"
+
+ssh-add --apple-use-keychain
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/amosarbiv/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+PATH="/Users/amosarbiv/.local/bin/chrome-for-testing:$PATH"
+
